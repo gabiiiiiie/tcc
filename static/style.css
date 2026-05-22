@@ -1,0 +1,180 @@
+body {
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #004B87 ;
+}
+
+form {
+    align-items: center;
+    width: 100%;
+}
+
+#index_senaiiimagem{
+    position: absolute;
+    top: 30px;
+    left: 750px;
+    width: 400px;
+    height: 200px;
+}
+
+#index_caixa{
+    position: absolute;
+    top: 250px;
+    left: 700px;
+    width: 500px;
+    height: 360px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#index_username{
+    position: relative;
+    top: 70px;
+    left: 50px;
+    width: 400px;
+    height: 30px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#index_password{
+    position: relative;
+    margin: 20px 0px 20px 0px;
+    top: 70px;
+    left: 50px;
+    width: 400px;
+    height: 30px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#index_botao{
+    position: relative;
+    top:70px;
+    left: 50px;
+    width: 400px;
+    height: 50px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #004B87;
+    color: #ffffff;
+}
+
+#banco_de_dados{ 
+    position: absolute;
+    top: 250px;
+    left: 700px;
+    width: 500px;
+    height: 300px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#almoxarifado {
+    margin: 0;
+    background-color: #004B87;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#caixa-almoxarifado1 {
+    width: 600px;
+    height: 400px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#caixa-almoxarifado2 {
+    color: #004B87;
+    margin-bottom: 20px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #004B87;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+#consulta_botao {
+    position:absolute;
+    top: 40px;
+    left: 30px;
+    width: 120px;
+    height: 45px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #faf9f9;
+    color: #000000;
+    border: #004B87;
+}
+
+#tabelinha{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+#tabelinha th {
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid orange;
+    padding: 10px; /* Opcional: adiciona um espaço interno para o texto não sufocar */
+    text-align: center; /* Opcional: alinha o texto à esquerda */
+}
+
+#tabelinha tr:hover th {
+    background-color: #f0c183 !important; 
+    cursor: pointer; 
+}
+
+
+#tabelinha tr:first-child th,
+#tabelinha tr:first-child td {
+    background-color: #4c62ac !important; 
+    color: #ffffff; 
+}                       
+
+#titulo {
+    margin-top: 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#index_titulo {
+    margin-top: 40px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    color: #33588a;
+
+}
+
