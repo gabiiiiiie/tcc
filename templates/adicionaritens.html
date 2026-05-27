@@ -7,30 +7,4 @@
 </head>
 <body>
     <h1 id="titulo">Adicionar itens<h1>
-    <form action="/" method="GET">
-    <a href="/index">
-        <button id="consulta_botao" type="submit">Voltar ao Login</button>
-    </a>
-    </form>
-
-    <table id="tabelinha">
-        <tr>
-            <th>Id</th>
-            <th>Nome do item</th>
-            <th>Qtde</th>
-            <th>Categoria</th>
-            <th>Descricao</th>
-        </tr>
-        {% for item in resposta%}
-        <tr>
-            <th>{{item[0]}}</th>
-            <th>{{item[1]}}</th>
-            <th>{{item[2]}}</th>
-            <th>{{item[3]}}</th>
-            <th>{{item[4]}}</th>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-<button id="inseriritens" type="submit">Editar</button>
- </html>
+   

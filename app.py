@@ -3,6 +3,16 @@ import mysql.connector
 
 app = Flask(__name__)
 
+@app.route('/adicionaritens', methods=['POST', 'GET'])
+def adicionaritens():
+    conexao = mysql.connector.connect (
+        host='localhost',
+        port=3306,
+        database= 'almoxarifado',
+        user='root',
+        password=''
+    )
+
 @app.route('/')
 def index():
     return render_template('index.html')
