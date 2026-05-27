@@ -178,3 +178,19 @@ td {
 
 }
 
+#inseriritens {
+    margin-top: 300px;
+    margin-left: 800px;
+    background-color: orange;
+    color: #ffffff;            
+    font-size: 14px;          
+    font-weight: 600;          
+    padding: 10px 20px;       
+    border: none;              
+    border-radius: 6px;        
+    cursor: pointer;           
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+
