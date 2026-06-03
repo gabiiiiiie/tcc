@@ -12,6 +12,7 @@ def adicionaritens():
         user='root',
         password=''
     )
+    return render_template('index.html')
 
 @app.route('/')
 def index():
@@ -33,7 +34,7 @@ def banco():
 
     cursor = conexao.cursor()
 
-    cursor.execute('SELECT * FROM estoque'),
+    cursor.execute('SELECT * FROM estoque')
 
     resposta = cursor.fetchall()
 
