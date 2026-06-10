@@ -1,9 +1,34 @@
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
 body {
+    min-height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    background-color: #004B87 ;
+    background-image: linear-gradient(#004B87, #1867a8, #4e8cbf);
+    padding: 20px;
+    background-image: url('imagemlogintcc.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto; /* 70% da largura, altura automática */
+    background-color: #004a8d; /* Cor de fundo para as bordas que sobrarem */
 }
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 20, 40, 0.55); /* Azul escuro com 55% de transparência */
+    z-index: 1;
+}
+
 
 form {
     align-items: center;
@@ -21,41 +46,61 @@ form {
 #index_caixa{
     position: absolute;
     top: 250px;
-    left: 500px;
-    width: 500px;
+    left: 990px;
+    width: 350px;
     height: 360px;
     background-color: #ffffff;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
+   
 }
 
+
 #index_username{
+    width: 100%;
+    padding: 12px;
+    margin-top: auto;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
     position: relative;
     top: 70px;
-    left: 50px;
-    width: 400px;
+    left: 20px;
+    width: 285px;
     height: 30px;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
+    margin-inline-start: 0cqmax;
+    
 }
 
 #index_password{
+ width: 100%;
+    padding: 12px;
+    margin-top: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
     position: relative;
-    margin: 20px 0px 20px 0px;
     top: 70px;
-    left: 50px;
-    width: 400px;
+    left: 20px;
+    width: 285px;
     height: 30px;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
+     
 }
 
 #index_botao{
     position: relative;
-    top:70px;
+    top:75px;
     left: 50px;
     width: 400px;
     height: 50px;
@@ -64,7 +109,26 @@ form {
     justify-content: center;
     background-color: #004B87;
     color: #ffffff;
+    background-color: #005594;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 100%;
+    padding: 12px;
+    background-color: #005696;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
 }
+
+#index_botao .btn-submit:hover {
+    transform: translateY(-2px); /* Desloca o botão levemente para cima */
+    box-shadow: 0 4px 12px rgba(0, 86, 150, 0.2); /* Adiciona uma sombra suave azul */
+}
+
 
 #banco_de_dados{ 
     position: absolute;
@@ -80,7 +144,7 @@ form {
 
 #almoxarifado {
     margin: 0;
-    background-color: #004B87;
+    background-color: #1867a8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,7 +162,7 @@ form {
 }
 
 #caixa-almoxarifado2 {
-    color: #004B87;
+    color: #0f5f9f;
     margin-bottom: 20px;
 }
 
@@ -135,9 +199,11 @@ td {
 }
 
 #tabelinha{
+    position: absolute;
+    left: 400px;
+    top: 200px;
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+
     margin-top: 100px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -158,12 +224,13 @@ td {
 
 #tabelinha tr:first-child th,
 #tabelinha tr:first-child td {
-    background-color: #4c62ac !important; 
+    background-color: #004B87 !important; 
     color: #ffffff; 
 }                       
 
 #titulo {
-    margin-top: 30px;
+    margin-top: 50px;
+    left: 400px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -171,11 +238,12 @@ td {
 }
 
 #index_titulo {
-    margin-top: 25px;
+    margin-top: 20px;
+    min-height: auto;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
-    color: #33588a;
+    color: #000000;
 
 }
 
@@ -198,4 +266,8 @@ input::placeholder {
     text-align: left;
 }
 
+#senaii.png
+
+
+ 
 
