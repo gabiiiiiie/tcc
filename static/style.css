@@ -1,133 +1,81 @@
-{
+/* Reset inicial para aplicar a fonte moderna em tudo */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-body {
+body.paginaindex {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(#004B87, #1867a8, #4e8cbf);
+    align-items: center;     
+    background: linear-gradient(135deg, #002F56 0%, #004B87 50%, #1867A8 100%);
     padding: 20px;
-    background-image: url('imagemlogintcc.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% auto; /* 70% da largura, altura automática */
-    background-color: #004a8d; /* Cor de fundo para as bordas que sobrarem */
-}
-
-.background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 20, 40, 0.55); /* Azul escuro com 55% de transparência */
-    z-index: 1;
+    left: 900px;
 }
 
 
-form {
-    align-items: center;
-    width: 100%;
-}
-
-#index_senaiiimagem{
-    position: absolute;
-    top: 30px;
-    left: 550px;
-    width: 400px;
-    height: 200px;
-}
-
-#index_caixa{
-    position: absolute;
-    top: 250px;
-    left: 990px;
-    width: 350px;
-    height: 360px;
+.login-container {
+    display: flex;
     background-color: #ffffff;
     border-radius: 20px;
-    align-items: center;
-    justify-content: center;
-   
-}
-
-
-#index_username{
+    overflow: hidden; /* Garante que a foto respeite a curva do canto */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    max-width: 800px; /* Largura total somando foto + formulário */
     width: 100%;
-    padding: 12px;
-    margin-top: auto;
-    margin-bottom: 5px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background-color: #f9f9f9;
-    position: relative;
-    top: 70px;
-    left: 20px;
-    width: 285px;
-    height: 30px;
-    border-radius: 20px;
-    align-items: center;
-    justify-content: center;
-    margin-inline-start: 0cqmax;
-    
 }
 
-#index_password{
- width: 100%;
-    padding: 12px;
-    margin-top: 4px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background-color: #f9f9f9;
-    position: relative;
-    top: 70px;
-    left: 20px;
-    width: 285px;
-    height: 30px;
-    border-radius: 20px;
-    align-items: center;
+
+
+/* Sua Caixa de Login (Removido os absolutes que travavam ela na direita) */
+#index_caixa {
+    width: 400px;             /* Ocupa o resto do espaço */
+    height: 300px;
+    background-color: #ffffff;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-     
 }
 
-#index_botao{
-    position: relative;
-    top:75px;
-    left: 50px;
-    width: 400px;
-    height: 50px;
-    border-radius: 20px;
-    align-items: center;
-    justify-content: center;
-    background-color: #004B87;
-    color: #ffffff;
-    background-color: #005594;
-    border-radius: 8px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
+form {
     width: 100%;
+}
+
+/* inputs ajustados para ocupar o espaço do container de forma limpa */
+#index_username, #index_password {
+    display: block;
+    width: 100%;
+    height: 45px;
     padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Cantos combinando com o container */
+    background-color: #f9f9f9;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#index_password {
+    margin-bottom: 25px;
+}
+
+#index_botao {
+    display: block;
+    width: 100%;             
+    height: 45px;            
     background-color: #005696;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
+    color: #ffffff;           
+    border: none;             
+    border-radius: 8px;     
+    font-weight: bold;        
+    text-transform: uppercase;
+    letter-spacing: 1px;      
+    cursor: pointer;          
+    transition: all 0.3s ease;
 }
 
-#index_botao .btn-submit:hover {
-    transform: translateY(-2px); /* Desloca o botão levemente para cima */
-    box-shadow: 0 4px 12px rgba(0, 86, 150, 0.2); /* Adiciona uma sombra suave azul */
-}
 
 
 #banco_de_dados{ 
@@ -241,9 +189,9 @@ td {
     margin-top: 20px;
     min-height: auto;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bolder;
-    color: #000000;
+    font-family: 'Sora', sans-serif;
+    color: #004B87;
+    
 
 }
 
@@ -266,7 +214,6 @@ input::placeholder {
     text-align: left;
 }
 
-#senaii.png
 
 
  
