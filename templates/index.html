@@ -5,21 +5,30 @@
     <title>Login</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/style.css">
 </head>
-<meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="static/style.css">
 <body class="paginaindex">
-    <img>
-    <div id="index_caixa">
-        <h1 id="index_titulo">Gestão de Estoque<h1>
-        <form  action="/banco" method="POST">
-            <input id="index_username" type="text" name="username" placeholder="Nome de Usuário" >
-            <input id="index_password" type="password" name="password" placeholder="Senha">
-            <button id="index_botao" type="submit">Entrar</button>
-        </form>
+    
+    <!-- Container que junta a caixa de login e a logo lado a lado -->
+    <div class="login-container">
+        
+        <!-- Caixa de Login -->
+        <div id="index_caixa">
+            <h1 id="index_titulo">Gestão de Estoque</h1> 
+            <br><br>
+            <form action="/banco" method="POST">
+                <input id="index_username" type="text" name="username" placeholder="Nome de Usuário" required>
+                <input id="index_password" type="password" name="password" placeholder="Senha" required>
+                <button id="index_botao" type="submit">Entrar</button>
+            </form>
+        </div>
+
+        <!-- Imagem do SENAI corrigida (Com a vírgula adicionada após 'static') -->
+        <div style="background-color: #ffffff; display: flex; align-items: center; padding: 20px; border-radius: 0 20px 20px 0;">
+        <img src="{{ url_for('static', filename='imagemitens/senailogin.png') }}"  class="senailogin">
     </div>
+
+    </div>
+
 </body>
 </html>
