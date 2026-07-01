@@ -7,7 +7,12 @@
 </head>
 <body class="paginabanco">
     <h1 id="titulo">Almoxarifado</h1>
-    
+
+    <!-- CORREÇÃO 1: Coloquei a div container fechando certinho e mudei o ID para "inputPesquisa" para bater com o JavaScript -->
+    <div class="container-pesquisa">
+        <input type="text" id="inputPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquise por nome do item...">
+    </div>
+
     <!-- Botão de Voltar Corrigido (Redirecionamento limpo para a raiz) -->
     <div style="padding-left: 5%; margin-top: 20px;">
         <button id="consulta_botao" type="button" onclick="window.location.href='/'">Voltar ao Login</button>
@@ -23,13 +28,14 @@
                 <th>Quantidade</th>
                 <th>Estoque</th>
                 <th>Descrição</th>
-                <th>Preco</th>
+                <th>Preço</th>
                 <th>Categoria</th>
                 <th>Foto</th>
             </tr>
         </thead>
         <tbody>
             {% for item in resposta %}
+            <!-- CORREÇÃO 2: Limpados os fechamentos extras de </td> e </tr> que estavam duplicados aqui dentro -->
             <tr>
                 <td>{{ item[0] }}</td>
                 <td>{{ item[1] }}</td>
@@ -46,7 +52,7 @@
         </tbody>
     </table>
 
-    <!-- Botão adicionar novos itens corrigido e estilizado -->
+    <!-- Botão adicionar novos itens -->
     <div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 15px; padding-left: 5%;">
         <button id="adicionaritensbotao" type="button" onclick="window.location.href='/adicionaritens'">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -55,6 +61,29 @@
             Adicionar Itens
         </button>
     </div>
+
+   <script>
+function filtrarTabela() {
+    var input = document.getElementById("inputPesquisa");
+    var filter = input.value.toLowerCase();
+    var tabela = document.getElementById("tabelinha");
+    var linhas = tabela.getElementsByTagName("tr");
+
+    for (var i = 1; i < linhas.length; i++) {
+        var colunas = linhas[i].getElementsByTagName("td");
+        if (colunas.length > 0) {
+            var nomeItem = colunas[1].textContent || colunas[1].innerText;
+            
+            if (nomeItem.toLowerCase().indexOf(filter) > -1) {
+                // CORRIGIDO: Removido o ".style" duplicado
+                linhas[i].style.display = ""; 
+            } else {
+                linhas[i].style.display = "none";
+            }
+        }
+    }
+}
+</script>
 
 </body>
 </html>

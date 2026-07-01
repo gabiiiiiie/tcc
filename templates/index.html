@@ -5,28 +5,42 @@
     <title>Login</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link rel="stylesheet" href="static/style.css">
+    <!-- Correção 1: Uso correto do url_for para o arquivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="paginaindex">
     
-    <!-- Container que junta a caixa de login e a logo lado a lado -->
     <div class="login-container">
         
         <!-- Caixa de Login -->
         <div id="index_caixa">
             <h1 id="index_titulo">Gestão de Estoque</h1> 
-            <br><br>
-            <form action="/banco" method="POST">
+            
+            <!-- Correção 2: Enviando para a rota correta de login do sistema -->
+            <form action="/login" method="POST">
+                <!-- Campo de Usuário -->
                 <input id="index_username" type="text" name="username" placeholder="Nome de Usuário" required>
+                
+                <!-- Campo de Senha -->
                 <input id="index_password" type="password" name="password" placeholder="Senha" required>
+                
+                <a href="{{ url_for('esquecisenha') }}">Esqueci minha senha</a>
+
+                <!-- Botão Entrar -->
                 <button id="index_botao" type="submit">Entrar</button>
+
+                <!-- Link de Cadastro -->
+                <div class="signup-container">
+                    <span>Não tem uma conta? </span>
+                    <a href="{{ url_for('cadastro') }}" class="signup-link">Cadastre-se</a>
+                </div>
             </form>
         </div>
 
-        <!-- Imagem do SENAI corrigida (Com a vírgula adicionada após 'static') -->
+        <!-- Imagem do SENAI -->
         <div style="background-color: #ffffff; display: flex; align-items: center; padding: 20px; border-radius: 0 20px 20px 0;">
-        <img src="{{ url_for('static', filename='imagemitens/senailogin.png') }}"  class="senailogin">
-    </div>
+            <img src="{{ url_for('static', filename='imagemitens/senailogin.png') }}" class="senailogin">
+        </div>
 
     </div>
 

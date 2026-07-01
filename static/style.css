@@ -253,3 +253,84 @@ input::placeholder {
     margin: 0 auto;
     object-fit: contain;
 }
+
+#barradepesquisa {
+    width: 100%;
+    max-width: 270px;
+    padding: 12px 20px 12px 45px; 
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 25px; 
+    
+    
+
+}
+
+.signup-container {
+    text-align: center;
+    margin-top: 15px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #333333;
+}
+
+.signup-link {
+    color: #004c99; /* Mesmo azul do padrão SENAI */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+
+
+}
+
+
+/* Estilo do link Esqueci minha senha */
+.forgot-password-container {
+    text-align: right;
+    margin-top: -8px; /* Ajusta a proximidade com o campo de senha */
+    margin-bottom: 20px;
+    width: 100%; /* Garante que alinhe com a borda do input */
+}
+
+.forgot-password {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #004c99; /* Azul padrão do SENAI */
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Estilo do bloco de Cadastro */
+.signup-container {
+    text-align: center;
+    margin-top: 15px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #333333;
+}
+
+.signup-link {
+    color: #004c99;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+#inputPesquisa {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+    margin-left: 1100px;
+    margin-top: 2px;
+}
