@@ -20,17 +20,27 @@ body.paginabanco {
     background-color:#1867a8;
 }
 
+
+.paginabanco #titulo {
+    color: #ffffff;       
+    font-size: 55px;      
+    text-align: center;   
+    margin-top: 20px;  
+
+}
+
+
 .login-container {
     display: flex;
     background-color: #ffffff;
     border-radius: 20px;
-    overflow: hidden; /* Garante que a foto respeite a curva do canto */
+    overflow: hidden; 
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    max-width: 800px; /* Largura total somando foto + formulário */
+    max-width: 800px; 
     width: 100%;
 }
 
-/* MODIFICADO: Adicionado flex: 1 e removido sombras duplicadas para casar com o container pai */
+
 #index_caixa {
     flex: 1;
     background: #ffffff;
@@ -40,7 +50,6 @@ body.paginabanco {
     transition: all 0.3s ease;
 }
 
-/* ADICIONADO: Novo bloco para a metade que segura a logo do SENAI */
 .login-container-logo {
     flex: 1;
     background-color: #ffffff;
@@ -63,7 +72,7 @@ form {
     width: 100%;
 }
 
-/* inputs ajustados para ocupar o espaço do container de forma limpa */
+
 #index_username, #index_password {
     display: block;
     width: 100%;
@@ -71,7 +80,7 @@ form {
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
-    border-radius: 8px; /* Cantos combinando com o container */
+    border-radius: 8px; 
     background-color: #f9f9f9;
     font-size: 14px;
     transition: all 0.3s ease;
@@ -159,14 +168,11 @@ form {
     font-weight: bold;
     color: #ffffff;
 }
-
 #index_titulo {
-    color: #004b8d; /* Azul institucional padrão */
+    color: #004b8d; 
     font-family: font-family: 'Poppins', sans-serif;
     font-size: 28px;
     font-weight: 700;
-    margin-bottom: 24px;
-    text-align: center;
 }
 
 #inseriritens {
@@ -216,7 +222,7 @@ input::placeholder {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo só do cabeçalho */
+
 #tabelinha th {
     background-color: #004B87; 
     color: #ffffff;           
@@ -226,27 +232,27 @@ input::placeholder {
     border: 1px solid #003a69;
 }
 
-/* Estilo para as células de dados da tabela */
+
 #tabelinha td {
     padding: 12px;
-    color: #333333;            /* Texto escuro para perfeita leitura */
+    color: #333333;            
     text-align: center;
-    border: 1px solid #dddddd; /* Bordas cinzas suaves separando as linhas */
-    vertical-align: middle;    /* Centraliza os textos em relação à altura da foto */
+    border: 1px solid #dddddd; 
+    vertical-align: middle;    
     background-color: #ffffff;
 }
 
-/* Efeito Zebrado opcional (deixa linhas alternadas com fundo cinza bem claro) */
+/* Efeito Zebrado nas linhas da tabela (cinza) */
 #tabelinha tbody tr:nth-child(even) td {
     background-color: #f9f9f9;
 }
 
-/* Efeito ao passar o mouse por cima das linhas de dados */
+/* Efeito do mouse na tabela */
 #tabelinha tbody tr:hover td {
     background-color: #f1f5f9;
 }
 
-/* Ajuste fino para as fotos dentro da tabela */
+
 #tabelinha img {
     border-radius: 6px;
     display: block;
@@ -287,18 +293,18 @@ input::placeholder {
 }
 
 
-/* Estilo do link Esqueci minha senha */
+/*Esqueci minha senha */
 .forgot-password-container {
     text-align: right;
-    margin-top: -8px; /* Ajusta a proximidade com o campo de senha */
+    margin-top: -8px;
     margin-bottom: 20px;
-    width: 100%; /* Garante que alinhe com a borda do input */
+    width: 100%; /
 }
 
 .forgot-password {
     font-family: Arial, sans-serif;
     font-size: 12px;
-    color: #004c99; /* Azul padrão do SENAI */
+    color: #004c99; 
     text-decoration: none;
 }
 
@@ -306,7 +312,7 @@ input::placeholder {
     text-decoration: underline;
 }
 
-/* Estilo do bloco de Cadastro */
+/*  bloco do Cadastro */
 .signup-container {
     text-align: center;
     margin-top: 15px;
@@ -328,9 +334,10 @@ input::placeholder {
 #inputPesquisa {
     padding: 8px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     border-radius: 4px;
     width: 250px;
-    margin-left: 1100px;
-    margin-top: 2px;
+    margin-left: 1900px;
+    margin-top: 5px;
 }
+

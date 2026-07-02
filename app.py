@@ -3,7 +3,7 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# 1. ROTA DA TELA DE LOGIN (RAIZ)
+# 1. ROTA DA TELA DE LOGIN 
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -22,7 +22,7 @@ def banco():
         port=3306,
         database='almoxarifado',
         user='root',
-        password='' # Se o seu MySQL tiver senha, coloque-a aqui dentro das aspas
+        password='' 
     )
     cursor = conexao.cursor()
     cursor.execute('SELECT * FROM estoque')
@@ -40,7 +40,7 @@ def salvar_item():
     quantidade = request.form['quantidade']
     estoque = request.form['estoque']
     descricao = request.form['descricao']
-    preco_form = request.form['preço']  # Captura com 'ç' correspondente ao seu HTML
+    preco_form = request.form['preco']  
     categoria = request.form['categoria']
     foto = request.form['foto']
 
@@ -75,34 +75,9 @@ def adicionaritens():
     return render_template('adicionaritens.html')
 
 
-# 5. ROTA QUE APENAS ABRE A TELA DO FORMULÁRIO DE EXCLUSÃO (FORA DA TABELA)
-@app.route('/deletar', methods=['GET'])
-def tela_deletar():
-    return render_template('deletar.html')
 
 
-# 6. ROTA QUE RECEBE O ID DO FORMULÁRIO E DELETA NO BANCO
-@app.route('/confirmardeletar', methods=['POST'])
-def confirmar_deletar():
-    id_recebido = request.form['id_item']
 
-    conexao = mysql.connector.connect(
-        host='localhost',
-        port=3306,
-        database='almoxarifado',
-        user='root',
-        password=''
-    )
-    cursor = conexao.cursor()
-
-    comando_sql = "DELETE FROM estoque WHERE Id = %s"
-    cursor.execute(comando_sql, (id_recebido,))
-    conexao.commit()
-    
-    cursor.close()
-    conexao.close()
-
-    return redirect(url_for('banco'))
 
 
 # 7. ROTA PARA A PÁGINA DE RECUPERAÇÃO DE SENHA

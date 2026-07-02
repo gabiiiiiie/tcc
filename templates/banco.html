@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Almoxarifado</title>
+    <title id="titulobanco">Almoxarifado</title>
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body class="paginabanco">
@@ -28,14 +28,14 @@
                 <th>Quantidade</th>
                 <th>Estoque</th>
                 <th>Descrição</th>
-                <th>Preço</th>
+                <th>Preco</th>
                 <th>Categoria</th>
                 <th>Foto</th>
             </tr>
         </thead>
         <tbody>
             {% for item in resposta %}
-            <!-- CORREÇÃO 2: Limpados os fechamentos extras de </td> e </tr> que estavam duplicados aqui dentro -->
+           
             <tr>
                 <td>{{ item[0] }}</td>
                 <td>{{ item[1] }}</td>
@@ -62,28 +62,37 @@
         </button>
     </div>
 
-   <script>
-function filtrarTabela() {
-    var input = document.getElementById("inputPesquisa");
-    var filter = input.value.toLowerCase();
-    var tabela = document.getElementById("tabelinha");
-    var linhas = tabela.getElementsByTagName("tr");
+    <script>
 
-    for (var i = 1; i < linhas.length; i++) {
-        var colunas = linhas[i].getElementsByTagName("td");
-        if (colunas.length > 0) {
-            var nomeItem = colunas[1].textContent || colunas[1].innerText;
+      function filtrarTabela() {
+        const input = document.getElementById("inputPesquisa");
+        const filter = input.value.toLowerCase();
+        
+        // Busca a tabela especificamente dentro da classe da página
+        const tabela = document.querySelector(".paginabanco table");
+        if (!tabela) return; 
+        
+        const linhas = tabela.getElementsByTagName("tr");
+
+        // Começa em 1 para pular o cabeçalho (th)
+        for (let i = 1; i < linhas.length; i++) {
+            let linhaContemOTexto = false;
+            const celulas = linhas[i].getElementsByTagName("td");
             
-            if (nomeItem.toLowerCase().indexOf(filter) > -1) {
-                // CORRIGIDO: Removido o ".style" duplicado
-                linhas[i].style.display = ""; 
-            } else {
-                linhas[i].style.display = "none";
+            // Varre todas as colunas da linha para achar o termo digitado
+            for (let j = 0; j < celulas.length; j++) {
+                const textoCelula = celulas[j].textContent || celulas[j].innerText;
+                if (textoCelula.toLowerCase().indexOf(filter) > -1) {
+                    linhaContemOTexto = true;
+                    break; 
+                }
             }
+            
+            // Exibe ou oculta a linha de forma dinâmica
+            linhas[i].style.display = linhaContemOTexto ? "" : "none";
         }
     }
-}
-</script>
+    </script>
 
-</body>
 </html>
+

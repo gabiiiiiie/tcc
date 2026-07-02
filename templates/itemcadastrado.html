@@ -2,9 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Sucesso</title>
+    <title id="titulosucesso">Sucesso</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
+
+        #titulosucesso {
+            color: #fff8f8;
+        }
         .caixa-sucesso {
             max-width: 400px;
             margin: 100px auto;
@@ -13,12 +17,12 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
-            color: #333333;
+            color: #f8f7f7;
         }
-        .icone-sucesso { font-size: 50px; color: #2ecc71; margin-bottom: 15px; }
-        .caixa-sucesso h2 { margin-bottom: 20px; color: #004B87; }
+        .icone-sucesso { font-size: 50px; color: #128b45; margin-bottom: 15px; }
+        .caixa-sucesso h2 { margin-bottom: 20px; color: #e3eaf0; }
         .btn-voltar {
-            display: inline-block; background-color: #007acc; color: white; border: none; 
+            display: inline-block; background-color: #2182c2; color: white; border: none; 
             padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: bold; 
             text-decoration: none; margin-top: 10px; transition: background 0.2s;
         }
@@ -30,7 +34,7 @@
         <div class="icone-sucesso">✓</div>
         <h2>Item Cadastrado com Sucesso!</h2>
         <p>O produto já foi salvo no banco de dados e está visível no almoxarifado.</p>
-        <!-- Botão para retornar à página do estoque -->
+       
         <a href="/banco" class="btn-voltar">Voltar para a Tabela</a>
     </div>
 </body>
