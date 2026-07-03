@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Movimentação de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</head>
+<body class="paginamovimentacao">
+    <br><br><br>
+
+<div id=caixamovimentacao>
+
+<h1 id="titulomovimentacao">Atualizar Quantidade</h1>
+<br>
+<br>
+    <form action="/salvar" method="POST">
+        <select id="selecionaitem" name="id_item" aria-label="Large select example" required>
+            <option value="" disabled selected>Selecione o item</option>
+                    {% for item in itens %}
+                    <option value="{{ item[0] }}">{{ item[1] }} (Atual: {{ item[2] }})</option>
+                    {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="tipo_operacao">Tipo de Movimentação</label>
+        <select id="tipo_operacao" name="tipo" required>
+            <option value="entrada">Entrada (+)</option>
+            <option value="saida">Saída (-)</option>
+        </select>
+        <br>
+        <br>
+        <label for="qtd_atualizar">Quantidade</label>
+        <input type="number" id="qtd_atualizar" name="quantidade" min="1" placeholder="Digite a quantidade..." required>
+        <br><br>
+        <button type="submit" class="btn btn-warning">Salvar item</button>
+        <br><br>
+        <a href="{{ url_for('banco') }}" class="linkretorno">Voltar para a Tabela</a>
+    </form>
+</div>
+    
+</body>
+</html>

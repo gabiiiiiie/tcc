@@ -26,7 +26,7 @@
                 <th>Id</th>
                 <th>Nome do item</th>
                 <th>Quantidade</th>
-                <th>Estoque</th>
+                <th>Estoque Mínimo</th>
                 <th>Descrição</th>
                 <th>Preco</th>
                 <th>Categoria</th>
@@ -55,12 +55,22 @@
     <!-- Botão adicionar novos itens -->
     <div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 15px; padding-left: 5%;">
         <button id="adicionaritensbotao" type="button" onclick="window.location.href='/adicionaritens'">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <svg width="16" height="17" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
             </svg>
             Adicionar Itens
         </button>
+
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 15px; padding-left: 5%;">
+            <button id="botaoatualizar" type="button" onclick="window.location.href='/movimentacao'">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+               Atualizar quantidade
+            </button>
+
     </div>
+
 
     <script>
 

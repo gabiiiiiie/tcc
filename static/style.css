@@ -21,11 +21,16 @@ body.paginabanco {
 }
 
 
+body.paginamovimentacao {
+    background-color: #1867a8;
+
+}
+
+
 .paginabanco #titulo {
     color: #ffffff;       
-    font-size: 55px;      
-    text-align: center;   
-    margin-top: 20px;  
+    font-size: 55px;        
+    margin-left: 120px;  
 
 }
 
@@ -173,6 +178,7 @@ form {
     font-family: font-family: 'Poppins', sans-serif;
     font-size: 28px;
     font-weight: 700;
+    text-align: center;
 }
 
 #inseriritens {
@@ -281,7 +287,7 @@ input::placeholder {
 }
 
 .signup-link {
-    color: #004c99; /* Mesmo azul do padrão SENAI */
+    color: #004c99; 
     text-decoration: none;
     font-weight: bold;
 }
@@ -337,7 +343,38 @@ input::placeholder {
     border: 1px solid #cccccc;
     border-radius: 4px;
     width: 250px;
-    margin-left: 1900px;
+    margin-left: 1500px;
     margin-top: 5px;
+
 }
 
+#areapraqntatl {
+        width: 250px;
+        margin-left: 400px;
+        margin-top: 120px;
+        height: 25px;
+
+}
+
+#caixamovimentacao{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 500px;
+    text-align: center;
+    justify-content: center;
+}
+
+.a {
+    flex: 1;
+    background-color: #004B87;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-left: 1px solid #f0f0f0; 
+
+
+}

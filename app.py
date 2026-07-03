@@ -15,7 +15,7 @@ def index1():
 
 # 2. ROTA QUE VALIDA O FORMULÁRIO DE LOGIN E ENCAMINHA PARA O BANCO
 @app.route('/login', methods=['POST'])
-@app.route('/banco', methods=['GET'])
+@app.route('/banco', methods=['GET', 'POST'])
 def banco():
     conexao = mysql.connector.connect(
         host='localhost',
@@ -53,7 +53,9 @@ def salvar_item():
     )
     cursor = conexao.cursor()
 
-    # Comando SQL usando a coluna 'Preco' sem acento como está no banco
+
+   
+    # Comando SQL
     comando_sql = """
         INSERT INTO estoque (Nome, Quantidade, Estoque, Descricao, Preco, Categoria, Foto) 
         VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -76,21 +78,66 @@ def adicionaritens():
 
 
 
-
-
-
-
-# 7. ROTA PARA A PÁGINA DE RECUPERAÇÃO DE SENHA
+# 5. ROTA PARA A PÁGINA DE RECUPERAÇÃO DE SENHA
 @app.route('/esquecisenha')
 def esquecisenha():
-    return render_template('esquecisenha.html')
+    return render_template('esquecisenha.html') 
 
+       
 
-# 8. ROTA PARA A PÁGINA DE CADASTRO DE USUÁRIOS
-@app.route('/cadastro')
+# 6. ROTA PARA A PÁGINA DE CADASTRO DE USUÁRIOS
+@app.route('/cadastrouser')
 def cadastro():
-    return render_template('cadastro.html')
+    return render_template('cadastrouser.html')
 
 
+# 7. ROTA PARA PAGINA MOVIMENTAÇÃO 
+@app.route('/movimentacao', methods=['GET', 'POST'])
+def tela_movimentar():
+    try:
+        conexao = mysql.connector.connect(
+            host='localhost', port=3306, database='almoxarifado', user='root', password=''
+        )
+        cursor = conexao.cursor()
+        cursor.execute('SELECT Id, Nome, Quantidade FROM estoque')
+        itens = cursor.fetchall()
+        cursor.close()
+        conexao.close()
+        
+       
+        return render_template('movimentacao.html', itens=itens)
+        
+    except mysql.connector.Error as erro:
+        print(f"Erro: {erro}")
+        return "Erro ao carregar itens", 500
+
+@app.route('/salvar', methods=['POST'])
+def salvar():
+        
+        id = request.form.get('id_item')
+        opcao = request.form.get('tipo')
+        qtde = int(request.form.get('quantidade'))
+        
+        conexao = mysql.connector.connect(
+            host='localhost', port=3306, database='almoxarifado', user='root', password=''
+        )
+        cursor = conexao.cursor()
+        cursor.execute ('SELECT Quantidade FROM estoque WHERE id = %s', (id,))
+        
+        qtde_banco = cursor.fetchone()
+
+        if opcao == 'entrada':
+            qtde_atualizada = qtde_banco[0] + qtde
+            cursor.execute('UPDATE estoque SET Quantidade = %s WHERE id = %s', (qtde_atualizada, id,))
+        
+        if opcao == 'saida':
+            qtde_atualizada = qtde_banco[0] - qtde
+            cursor.execute('UPDATE estoque SET Quantidade = %s WHERE id = %s', (qtde_atualizada, id,))
+
+        cursor.close()
+        conexao.close()
+        
+        return redirect(url_for('banco'))
+        
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
