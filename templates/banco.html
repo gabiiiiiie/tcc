@@ -8,12 +8,12 @@
 <body class="paginabanco">
     <h1 id="titulo">Almoxarifado</h1>
 
-    <!-- CORREÇÃO 1: Coloquei a div container fechando certinho e mudei o ID para "inputPesquisa" para bater com o JavaScript -->
+   
     <div class="container-pesquisa">
         <input type="text" id="inputPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquise por nome do item...">
     </div>
 
-    <!-- Botão de Voltar Corrigido (Redirecionamento limpo para a raiz) -->
+    <!-- Botão de Voltar  -->
     <div style="padding-left: 5%; margin-top: 20px;">
         <button id="consulta_botao" type="button" onclick="window.location.href='/'">Voltar ao Login</button>
     </div>
@@ -84,12 +84,12 @@
         
         const linhas = tabela.getElementsByTagName("tr");
 
-        // Começa em 1 para pular o cabeçalho (th)
+        // Começa em 1 pra pular o cabeçalho
         for (let i = 1; i < linhas.length; i++) {
             let linhaContemOTexto = false;
             const celulas = linhas[i].getElementsByTagName("td");
             
-            // Varre todas as colunas da linha para achar o termo digitado
+            // Busca oq foi digitado
             for (let j = 0; j < celulas.length; j++) {
                 const textoCelula = celulas[j].textContent || celulas[j].innerText;
                 if (textoCelula.toLowerCase().indexOf(filter) > -1) {
@@ -98,7 +98,7 @@
                 }
             }
             
-            // Exibe ou oculta a linha de forma dinâmica
+            // Exibe ou oculta a linha de acordo com q foi pesquisado
             linhas[i].style.display = linhaContemOTexto ? "" : "none";
         }
     }

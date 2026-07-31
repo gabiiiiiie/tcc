@@ -5,46 +5,41 @@
     <title>Login</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <!-- Correção 1: Uso correto do url_for para o arquivo CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="paginaindex">
     
-    <div class="login-container">
-        
-        <!-- Caixa de Login -->
+<!-- Caixa de Login  -->
         <div id="index_caixa">
+            <img src="{{ url_for('static', filename='imagemitens/senailogin.png') }}" class="senailogin" id="imgsenailogin" alt="SENAI">
+            <br>
+            <br>
             <h1 id="index_titulo">Gestão de Estoque</h1> 
-
             <br>
             
-            <!-- Correção 2: Enviando para a rota correta de login do sistema -->
             <form action="/login" method="POST">
                 <!-- Campo de Usuário -->
                 <input id="index_username" type="text" name="username" placeholder="Nome de Usuário" required>
                 
                 <!-- Campo de Senha -->
                 <input id="index_password" type="password" name="password" placeholder="Senha" required>
-                
-                <a href="{{ url_for('esquecisenha') }}">Esqueci minha senha</a>
 
                 <!-- Botão Entrar -->
                 <button id="index_botao" type="submit">Entrar</button>
-
-                <!-- Link de Cadastro -->
-                <div class="signup-container">
-                    <span>Não tem uma conta? </span>
-                    <a href="{{ url_for('cadastro') }}" class="signup-link">Cadastre-se</a>
-                </div>
             </form>
-        </div>
 
-        <!-- Imagem do SENAI -->
-        <div style="background-color: #ffffff; display: flex; align-items: center; padding: 20px; border-radius: 0 20px 20px 0;">
-            <img src="{{ url_for('static', filename='imagemitens/senailogin.png') }}" class="senailogin">
-        </div>
-
-    </div>
+            <!-- Mensagem de erro unificada abaixo do botão -->
+            {% with messages = get_flashed_messages(category_filter=["erro_login"]) %}
+                {% if messages %}
+                    <div class="erromensagem">
+                        {% for message in messages %}
+                            <div class="erromensagembox">
+                                ⚠️ {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
 
 </body>
 </html>

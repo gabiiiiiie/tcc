@@ -53,6 +53,8 @@ body.paginamovimentacao {
     width: 100%;
     max-width: 400px;
     transition: all 0.3s ease;
+    flex-direction: column;
+    border-radius: 20px;
 }
 
 .login-container-logo {
@@ -71,6 +73,7 @@ body.paginamovimentacao {
     max-width: 280px;
     height: auto;
     object-fit: contain;
+    left: 450px;
 }
 
 form {
@@ -175,10 +178,13 @@ form {
 }
 #index_titulo {
     color: #004b8d; 
-    font-family: font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: bolder;
     text-align: center;
+}
+
+#imgsenailogin {
+    margin-left: auto;
 }
 
 #inseriritens {
@@ -377,4 +383,9 @@ input::placeholder {
     border-left: 1px solid #f0f0f0; 
 
 
+}
+
+.logo-box-login img {
+    max-width: 240px;
+    left: 150px;
 }
