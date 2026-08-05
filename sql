@@ -29,16 +29,15 @@ Insert into estoque (Id, Nome, Quantidade, Estoque, Descricao, Preco, Categoria,
 
 ALTER TABLE estoque MODIFY COLUMN Id INT AUTO_INCREMENT;
 
-CREATE DATABASE IF NOT EXISTS gestao_estoque;
-USE gestao_estoque;
-
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL
 );
 
--- Inserindo os dois usuários e senhas para teste na sua página
+
 INSERT INTO usuarios (username, password) VALUES 
-('admin', 'admin123'),
-('', 'senha456');
+('admin', '1232'),
+('user', '4565');
+
+DROP TABLE IF EXISTS usuarios;
