@@ -183,9 +183,6 @@ form {
     text-align: center;
 }
 
-#imgsenailogin {
-    margin-left: auto;
-}
 
 #inseriritens {
     margin-top: 300px;
@@ -305,25 +302,6 @@ input::placeholder {
 }
 
 
-/*Esqueci minha senha */
-.forgot-password-container {
-    text-align: right;
-    margin-top: -8px;
-    margin-bottom: 20px;
-    width: 100%; /
-}
-
-.forgot-password {
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    color: #004c99; 
-    text-decoration: none;
-}
-
-.forgot-password:hover {
-    text-decoration: underline;
-}
-
 /*  bloco do Cadastro */
 .signup-container {
     text-align: center;
@@ -388,4 +366,9 @@ input::placeholder {
 .logo-box-login img {
     max-width: 240px;
     left: 150px;
+}
+
+#imgsenailogin {
+    max-width: 325px;
+
 }

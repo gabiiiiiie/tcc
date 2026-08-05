@@ -15,14 +15,14 @@ def obter_conexao():
         password=''
     )
 
-# 1. ROTA DA TELA DE LOGIN (INDEX)
+# 1. ROTA INDEX
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
 
 
-# 2. ROTA QUE VALIDA O LOGIN
+# ROTA QUE VALIDA O LOGIN
 @app.route('/login', methods=['POST'])
 def login():
     # Coleta os dados que o usuário digitou no formulário do index.html
@@ -55,7 +55,7 @@ def login():
         return redirect(url_for('index'))
 
 
-# ROTA QUE EXIBE OS ITENS DO ESTOQUE (Apenas após o login)
+# ROTA QUE MOSTRA OS ITENS DO ESTOQUE 
 @app.route('/banco', methods=['GET'])
 def banco():
     # BLOQUEIO DE SEGURANÇA: Se o usuário tentar acessar direto sem logar, é expulso
@@ -82,7 +82,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-# 3. ROTA QUE RECEBE OS DADOS DO FORMULÁRIO E SALVA NO BANCO
+# ROTA QUE RECEBE OS DADOS DO FORMULÁRIO E SALVA NO BANCO
 @app.route('/salvaritem', methods=['POST'])
 def salvar_item():
     if 'usuario_logado' not in session: return redirect(url_for('index'))
@@ -95,22 +95,26 @@ def salvar_item():
     categoria = request.form['categoria']
     foto = request.form['foto']
 
-    conexao = obter_conexao()
-    cursor = conexao.cursor()
+    try:
+        conexao = obter_conexao()
+        cursor = conexao.cursor()
 
-    comando_sql = """
-        INSERT INTO estoque (Nome, Quantidade, Estoque, Descricao, Preco, Categoria, Foto) 
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-    """
-    valores = (nome, quantidade, estoque, descricao, preco_form, categoria, foto)
-    
-    cursor.execute(comando_sql, valores)
-    conexao.commit()
-    
-    cursor.close()
-    conexao.close()
+        comando_sql = """
+            INSERT INTO estoque (Nome, Quantidade, Estoque, Descricao, Preco, Categoria, Foto) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+        valores = (nome, quantidade, estoque, descricao, preco_form, categoria, foto)
+        
+        cursor.execute(comando_sql, valores)
+        conexao.commit()
+        
+        cursor.close()
+        conexao.close()
 
-    return render_template('itemcadastrado.html')
+        return render_template('itemcadastrado.html')
+    except mysql.connector.Error as erro:
+        print(f"Erro ao salvar item: {erro}")
+        return "Erro ao salvar item no banco", 500
 
 
 # 4. ROTA PARA ADICIONAR ITENS 
@@ -120,35 +124,7 @@ def adicionaritens():
     return render_template('adicionaritens.html')
 
 
-
-@app.route('/salvaruser', methods=['POST'])
-def salvar_usuario():
-    # Coleta os dados enviados pelo formulário do cadastrouser.html
-    novo_usuario = request.form.get('novo_username')
-    nova_senha = request.form.get('nova_senha')
-
-    try:
-        conexao = obter_conexao()
-        cursor = conexao.cursor()
-
-        # Insere o novo usuário e senha na tabela 
-        comando_sql = "INSERT INTO usuarios (username, password) VALUES (%s, %s)"
-        cursor.execute(comando_sql, (novo_usuario, nova_senha))
-        
-        conexao.commit() # Confirma a gravação no banco de dados
-        cursor.close()
-        conexao.close()
-
-        # Redireciona o usuário para a tela de login após cadastrar com sucesso
-        flash('Usuário cadastrado com sucesso! Faça o login.', 'sucesso_login')
-        return redirect(url_for('index'))
-
-    except mysql.connector.Error as erro:
-        print(f"Erro ao cadastrar: {erro}")
-        return f"Erro: O usuário '{novo_usuario}' já existe ou ocorreu um problema no banco."
-
-
-# 5. ROTA PARA PAGINA MOVIMENTAÇÃO 
+# ROTA PARA PAGINA MOVIMENTAÇÃO 
 @app.route('/movimentacao', methods=['GET', 'POST'])
 def tela_movimentar():
     if 'usuario_logado' not in session: return redirect(url_for('index'))
@@ -172,25 +148,28 @@ def salvar():
     opcao = request.form.get('tipo')
     qtde = int(request.form.get('quantidade'))
     
-    conexao = obter_conexao()
-    cursor = conexao.cursor()
-    cursor.execute ('SELECT Quantidade FROM estoque WHERE id = %s', (id,))
-    
-    qtde_banco = cursor.fetchone()
+    try:
+        conexao = obter_conexao()
+        cursor = conexao.cursor()
+        cursor.execute('SELECT Quantidade FROM estoque WHERE id = %s', (id,))
+        qtde_banco = cursor.fetchone()
 
-    if opcao == 'entrada':
-        qtde_atualizada = qtde_banco[0] + qtde
-        cursor.execute('UPDATE estoque SET Quantidade = %s WHERE id = %s', (qtde_atualizada, id,))
-    
-    elif opcao == 'saida':
-        qtde_atualizada = qtde_banco[0] - qtde
-        cursor.execute('UPDATE estoque SET Quantidade = %s WHERE id = %s', (qtde_atualizada, id,))
+        if qtde_banco:
+            if opcao == 'entrada':
+                qtde_atualizada = qtde_banco[0] + qtde
+            elif opcao == 'saida':
+                qtde_atualizada = qtde_banco[0] - qtde
+                
+            cursor.execute('UPDATE estoque SET Quantidade = %s WHERE id = %s', (qtde_atualizada, id,))
+            conexao.commit() # Adicionado commit para salvar a alteração da quantidade
+            
+        cursor.close()
+        conexao.close()
+        return redirect(url_for('banco'))
+    except mysql.connector.Error as erro:
+        print(f"Erro na movimentação: {erro}")
+        return "Erro ao atualizar a quantidade no banco", 500
 
-    conexao.commit() # Adicionado commit para salvar a alteração da quantidade
-    cursor.close()
-    conexao.close()
-    
-    return redirect(url_for('banco'))
         
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
