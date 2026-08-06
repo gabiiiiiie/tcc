@@ -177,10 +177,27 @@ form {
     color: #ffffff;
 }
 #index_titulo {
-    color: #004b8d; 
+    color: #004b8d;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
     font-size: 32px;
-    font-weight: bolder;
+    font-weight: bold;
     text-align: center;
+}
+
+#seleçaouseradmin {
+    width: 320px;
+    height: 45px;
+    position: center;
+    padding: 14px;
+    background-color: #004B87;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
 }
 
 
