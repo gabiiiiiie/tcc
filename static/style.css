@@ -155,7 +155,7 @@ form {
 
 #consulta_botao {
     position: absolute;
-    top: 40px;
+    top: 60px;
     left: 30px;
     width: 120px;
     height: 45px;
@@ -388,4 +388,15 @@ input::placeholder {
 #imgsenailogin {
     max-width: 325px;
 
+}
+
+#categoriaselecao {
+    width: 440px;
+    height: 30px;
+    border-radius: 7px;
+    border-color: #a7a7a7;
+}
+
+#navbar {
+  background-color: #edf7ff;
 }
