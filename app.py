@@ -65,7 +65,7 @@ def banco():
     try:
         conexao = obter_conexao()
         cursor = conexao.cursor()
-        cursor.execute('SELECT * FROM estoque')
+        cursor.execute('SELECT * FROM estoque ORDER BY Id ASC')
         resposta = cursor.fetchall()
         
         cursor.close()
@@ -92,7 +92,7 @@ def salvar_item():
     estoque = request.form['estoque']
     descricao = request.form['descricao']
     preco_form = request.form['preco']  
-    categoria = request.form['categoria']
+    categoria = request.form.get('categoria')
     foto = request.form['foto']
 
     try:
@@ -111,7 +111,7 @@ def salvar_item():
         cursor.close()
         conexao.close()
 
-        return render_template('itemcadastrado.html')
+        return redirect(url_for('banco'))
     except mysql.connector.Error as erro:
         print(f"Erro ao salvar item: {erro}")
         return "Erro ao salvar item no banco", 500
@@ -122,6 +122,7 @@ def salvar_item():
 def adicionaritens():
     if 'usuario_logado' not in session: return redirect(url_for('index'))
     return render_template('adicionaritens.html')
+    
 
 
 # ROTA PARA PAGINA MOVIMENTAÇÃO 
@@ -147,6 +148,7 @@ def salvar():
     id = request.form.get('id_item')
     opcao = request.form.get('tipo')
     qtde = int(request.form.get('quantidade'))
+    
     
     try:
         conexao = obter_conexao()

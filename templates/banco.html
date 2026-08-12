@@ -1,68 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <title id="titulobanco">Almoxarifado</title>
-    <link rel="stylesheet" href="static/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+    </script>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
+
 <body class="paginabanco">
-    
+
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
+        <div class="container-fluid">
 
 
-<nav id="navbar" data-bs-theme="dark">
-  <!-- Navbar content -->
-</nav>
+            <a class="navbar-brand" href="#"></a>
+             <img src="{{ url_for('static', filename='imagemitens/senailogo.png') }}" id="imgnavbar">
 
-<h1 id="titulo">Almoxarifado</h1>
+            <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/index">
+                            Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/adicionaritens">
+                            Cadastrar item
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/movimentacao">
+                           Movimentação
+                        </a>
+                    </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
 
 
-   
+    <nav id="navbar" data-bs-theme="dark">
+        <!-- Navbar content -->
+    </nav>
+
+
+    <h1 id="titulo">Almoxarifado</h1>
+
+
     <div class="container-pesquisa">
-        <input type="text" id="inputPesquisa" onkeyup="filtrarTabela()" placeholder="Pesquise por nome do item...">
+
+        <input type="text"
+            id="inputPesquisa"
+            onkeyup="filtrarTabela()"
+            placeholder="Pesquise por nome do item...">
+
     </div>
 
-    <!-- Botão de Voltar  -->
-    <div style="padding-left: 5%; margin-top: 20px;">
-        <button id="consulta_botao" type="button" onclick="window.location.href='/'">Voltar ao Login</button>
-    </div>
 
     <br><br><br>
 
+
     <table id="tabelinha">
+
         <thead>
+
             <tr>
+
                 <th>Id</th>
                 <th>Nome do item</th>
                 <th>Quantidade</th>
@@ -71,12 +117,17 @@
                 <th>Preco</th>
                 <th>Categoria</th>
                 <th>Foto</th>
+
             </tr>
+
         </thead>
+
         <tbody>
+
             {% for item in resposta %}
-           
+
             <tr>
+
                 <td>{{ item[0] }}</td>
                 <td>{{ item[1] }}</td>
                 <td>{{ item[2] }}</td>
@@ -84,65 +135,105 @@
                 <td>{{ item[4] }}</td>
                 <td>R$ {{ item[5] }}</td>
                 <td>{{ item[6] }}</td>
+
                 <td>
-                    <img src="{{ url_for('static', filename='imagemitens/' ~ item[7]) }}" alt="{{ item[1] }}" width="100">
+                    <button
+                        type="button"
+                        class="btn-foto"
+                        onclick="verFoto('{{ item[7] }}', '{{ item[1] }}')">
+
+                        Imagem
+
+                    </button>
                 </td>
+
             </tr>
+
             {% endfor %}
+
         </tbody>
+
     </table>
 
-    <!-- Botão adicionar novos itens -->
-    <div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 15px; padding-left: 5%;">
-        <button id="adicionaritensbotao" type="button" onclick="window.location.href='/adicionaritens'">
-            <svg width="16" height="17" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-            </svg>
-            Adicionar Itens
-        </button>
 
-        <div style="width: 100%; display: flex; justify-content: flex-start; margin-top: 15px; padding-left: 5%;">
-            <button id="botaoatualizar" type="button" onclick="window.location.href='/movimentacao'">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-               Atualizar quantidade
-            </button>
+        </div>
 
     </div>
 
 
     <script>
 
-      function filtrarTabela() {
-        const input = document.getElementById("inputPesquisa");
-        const filter = input.value.toLowerCase();
-        
-        // Busca a tabela especificamente dentro da classe da página
-        const tabela = document.querySelector(".paginabanco table");
-        if (!tabela) return; 
-        
-        const linhas = tabela.getElementsByTagName("tr");
+        function verFoto(url, nome) {
 
-        // Começa em 1 pra pular o cabeçalho
-        for (let i = 1; i < linhas.length; i++) {
-            let linhaContemOTexto = false;
-            const celulas = linhas[i].getElementsByTagName("td");
-            
-            // Busca oq foi digitado
-            for (let j = 0; j < celulas.length; j++) {
-                const textoCelula = celulas[j].textContent || celulas[j].innerText;
-                if (textoCelula.toLowerCase().indexOf(filter) > -1) {
-                    linhaContemOTexto = true;
-                    break; 
-                }
+            if (!url || url.trim() === "") {
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Foto não encontrada',
+                    text: 'Este produto não possui uma foto cadastrada.'
+                });
+
+                return;
             }
-            
-            // Exibe ou oculta a linha de acordo com q foi pesquisado
-            linhas[i].style.display = linhaContemOTexto ? "" : "none";
+
+            Swal.fire({
+                title: nome,
+                imageUrl: url,
+                imageAlt: nome,
+                showCloseButton: true,
+                showConfirmButton: false,
+                imageWidth: 500,
+                imageHeight: 400
+            });
+
         }
-    }
+
+
+        function filtrarTabela() {
+
+            const input = document.getElementById("inputPesquisa");
+            const filter = input.value.toLowerCase();
+
+            // Busca a tabela especificamente dentro da classe da página
+            const tabela = document.querySelector(".paginabanco table");
+
+            if (!tabela) return;
+
+            const linhas = tabela.getElementsByTagName("tr");
+
+            // Começa em 1 pra pular o cabeçalho
+            for (let i = 1; i < linhas.length; i++) {
+
+                let linhaContemOTexto = false;
+
+                const celulas = linhas[i].getElementsByTagName("td");
+
+                // Busca oq foi digitado
+                for (let j = 0; j < celulas.length; j++) {
+
+                    const textoCelula =
+                        celulas[j].textContent ||
+                        celulas[j].innerText;
+
+                    if (textoCelula.toLowerCase().indexOf(filter) > -1) {
+
+                        linhaContemOTexto = true;
+                        break;
+
+                    }
+
+                }
+
+                // Exibe ou oculta a linha de acordo com q foi pesquisado
+                linhas[i].style.display =
+                    linhaContemOTexto ? "" : "none";
+
+            }
+
+        }
+
     </script>
 
-</html>
+</body>
 
+</html>

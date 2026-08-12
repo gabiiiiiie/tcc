@@ -30,7 +30,8 @@ body.paginamovimentacao {
 .paginabanco #titulo {
     color: #ffffff;       
     font-size: 55px;        
-    margin-left: 120px;  
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
@@ -399,4 +400,111 @@ input::placeholder {
 
 #navbar {
   background-color: #edf7ff;
+}
+
+.btn-foto {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-foto:hover {
+    background-color: #005f99;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+  #titulomovimentacao {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #1e293b;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    #caixamovimentacao {
+    margin-top: 300px;
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+.form-control, .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.95rem;
+    color: #212529;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Ajuste específico para o select maior de itens */
+.form-select-lg {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    font-size: 0.95rem;
+}
+
+/* Efeito visual moderno quando o usuário clica para digitar/selecionar */
+.form-control:focus, .form-select:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 0 0.25rem rgba(21, 101, 192, 0.15);
+    outline: none;
+}
+
+/* Botão Amarelo/Laranja Customizado */
+.btn-salvar {
+    background-color: #ffb300; /* Amarelo sólido */
+    color: #212529;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Efeito ao passar o mouse no botão */
+.btn-salvar:hover {
+    background-color: #ffa000;
+    color: #000000;
+}
+
+/* Efeito de clique físico no botão */
+.btn-salvar:active {
+    transform: scale(0.98);
+}
+
+/* Link de retorno elegante e discreto */
+.linkretorno {
+    color: #6c757d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.linkretorno:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+
+#imgnavbar {
+    max-width: 70px;
+    max-height: 70px;
 }
