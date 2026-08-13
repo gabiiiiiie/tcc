@@ -69,6 +69,19 @@
                         </a>
                     </li>
 
+                   {% if session.get('role') == 'admin' %}
+                 <li class="nav-item">
+                       <a class="nav-link" href="/adicionaritens" style="color: blue; font-weight: bold;">Cadastrar Item</a>
+                 </li>
+                 <li class="nav-item">
+                      <a class="nav-link" href="/cadastrar_usuario" style="color: green;">Cadastrar Usuários</a>
+                 </li>
+                   {% endif %}
+
+                 <li class="nav-item">
+             <a class="nav-link" href="/logout" style="color: red;">Sair</a>
+                  </li>
+
                         </ul>
 
                     </li>

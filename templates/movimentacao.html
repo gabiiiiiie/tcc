@@ -2,57 +2,150 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title id="titulomovimentacao">Movimentação de Estoque</title>
-    <!-- Substitua o conteúdo do seu arquivo style.css pelo CSS que está logo abaixo -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimentação de Estoque</title>
+    
+    <!-- Bootstrap 5 para ajudar no alinhamento e formulários -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Link para o seu CSS externo -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://jsdelivr.net" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://jsdelivr.net" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</head>
-<body class="paginamovimentacao">
 
-    <div id="caixamovimentacao" class="card shadow border-0">
-        <h2 id="titulomovimentacao">Atualizar Quantidade</h2>
+    <style>
+        
+        :root {
+            --azul-fundo: #0d47a1; /* Azul escuro do fundo */
+            --azul-botao: #0d47a1; /* Azul do botão principal */
+            --laranja-botao: #d97736; /* Laranja do botão cancelar/voltar */
+            --cor-titulo: #c46c3b; /* Cor do título similar à tela de cadastro */
+        }
+
+        
+        body {
+            background-color: var(--azul-fundo);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilo do cartão branco centralizado */
+        .cartao-formulario {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Título do formulário */
+        .cartao-formulario h2 {
+            text-align: center;
+            color: var(--cor-titulo);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        /* Estilo das labels */
+        .cartao-formulario label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Estilo dos inputs e selects para ficarem parecidos com os do seu site */
+        .cartao-formulario .form-control, 
+        .cartao-formulario .form-select {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+        }
+
+        /* Estilo dos botões */
+        .btn-principal {
+            background-color: var(--azul-botao);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-principal:hover {
+            background-color: #082d6b;
+            color: white;
+        }
+
+        .btn-secundario {
+            background-color: var(--laranja-botao);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secundario:hover {
+            background-color: #b55e26;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cartao-formulario">
+        <h2>Atualizar Quantidade</h2>
 
         <form action="/salvar" method="POST">
+            
             <!-- Selecionar Item -->
             <div class="mb-3">
-                <label for="selecionaitem" id="a">Item</label>
-                <select id="selecionaitem"  name="id_item" required>
+                <label for="selecionaitem">Item:</label>
+                <select id="selecionaitem" class="form-select" name="id_item" required>
                     <option value="" disabled selected>Selecione o item...</option>
                     {% for item in itens %}
-                    <option value="{{ item[0] }}">{{ item[1] }} (Atual: {{ item[2] }})</option>
+                        <option value="{{ item[0] }}">{{ item[1] }} (Atual: {{ item[2] }})</option>
                     {% endfor %}
                 </select>
             </div>
-            <br>
 
-            <!--Tipo de Operação -->
+            <!-- Tipo de Operação -->
             <div class="mb-3">
-                <label for="tipo_operacao" id="">Tipo de Movimentação</label>
-                <select id="tipo_operacao" id="selecaoentradasaida" name="tipo" required>
+                <label for="tipo_operacao">Tipo de Movimentação:</label>
+                <select id="tipo_operacao" class="form-select" name="tipo" required>
                     <option value="entrada">Entrada (+)</option>
                     <option value="saida">Saída (-)</option>
                 </select>
             </div>
-             <br>
 
             <!-- Campo: Quantidade -->
             <div class="mb-4">
-                <label for="qtd_atualizar" id="campoqnt">Quantidade</label>
+                <label for="qtd_atualizar">Quantidade:</label>
                 <input type="number" id="qtd_atualizar" class="form-control" name="quantidade" min="1" placeholder="Digite a quantidade..." required>
             </div>
-            <br>
 
-            <!-- Botão de Ação -->
-            <button type="submit" id="btnsalvaritem">Salvar item</button>
-            <br>
-            
-            <!-- Link de Voltar -->
-            <div id="btnretorno">
-                <a href="{{ url_for('banco') }}" class="linkretorno small">← Voltar para a Tabela</a>
+            <!-- Botões lado a lado (Copiando o padrão da tela de cadastro) -->
+            <div class="row gx-2 mt-4">
+                <div class="col-6 d-grid">
+                    <button type="submit" class="btn-principal">Salvar item</button>
+                </div>
+                <div class="col-6 d-grid">
+                    <a href="{{ url_for('banco') }}" class="btn-secundario">Cancelar</a>
+                </div>
             </div>
+
         </form>
     </div>
-    
+
+    <!-- Script do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

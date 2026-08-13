@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import mysql.connector
+# IMPORTAÇÃO DA CRIPTOGRAFIA (Adicionado)
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-# Chave para usar flash
 app.secret_key = 'chave_secreta_para_seguranca'
 
 # CONFIGURAÇÃO DE CONEXÃO PADRÃO 
@@ -22,32 +23,41 @@ def index():
     return render_template('index.html')
 
 
-# ROTA QUE VALIDA O LOGIN
+# ROTA QUE VALIDA O LOGIN (Atualizada para verificar criptografia e nível de acesso)
 @app.route('/login', methods=['POST'])
 def login():
-    # Coleta os dados que o usuário digitou no formulário do index.html
     username_digitado = request.form.get('username')
     password_digitada = request.form.get('password')
+    role_digitado = request.form.get('role') # Captura o valor 1 ou 2 do select do HTML
+
+    # Mapeia o select do HTML para o formato salvo no banco de dados
+    role_mapeado = "admin" if role_digitado == "1" else "user"
 
     try:
         conexao = obter_conexao()
-        cursor = conexao.cursor()
+        cursor = conexao.cursor(dictionary=True) # Retorna como dicionário para facilitar
         
-        # Busca na tabela 'usuarios' se existe a combinação de nome e senha digitados
-        comando = "SELECT * FROM usuarios WHERE username = %s AND password = %s"
-        cursor.execute(comando, (username_digitado, password_digitada))
+        # Busca apenas pelo username primeiro para validar a criptografia depois
+        comando = "SELECT * FROM usuarios WHERE username = %s"
+        cursor.execute(comando, (username_digitado,))
         usuario_encontrado = cursor.fetchone()
         
         cursor.close()
         conexao.close()
 
-        # Se encontrou o usuário no banco
-        if usuario_encontrado:
-            session['usuario_logado'] = username_digitado # Salva na sessão do navegador
-            return redirect(url_for('banco')) # Encarrega para a página do estoque
+        # Valida se o usuário existe e se a senha criptografada bate com o que foi digitado
+        if usuario_encontrado and check_password_hash(usuario_encontrado['password'], password_digitada):
+            # Valida se o cargo selecionado na tela de login bate com o do banco de dados
+            if usuario_encontrado['role'] == role_mapeado:
+                session['usuario_logado'] = username_digitado 
+                session['usuario_role'] = usuario_encontrado['role'] # Salva se é 'admin' ou 'user'
+                return redirect(url_for('banco')) 
+            else:
+                flash('Nível de acesso incorreto para este usuário!', 'erro_login')
+                return redirect(url_for('index'))
         else:
-            flash('Usuário ou senha incorretos!', 'erro_login') # Envia aviso de erro
-            return redirect(url_for('index')) # Devolve para a tela de login
+            flash('Usuário ou senha incorretos!', 'erro_login') 
+            return redirect(url_for('index'))
 
     except mysql.connector.Error as erro:
         print(f"Erro no banco de dados: {erro}")
@@ -55,10 +65,43 @@ def login():
         return redirect(url_for('index'))
 
 
-# ROTA QUE MOSTRA OS ITENS DO ESTOQUE 
+# ROTA DE CADASTRO DE USUÁRIOS (Identação e variáveis de sessão corrigidas)
+@app.route('/cadastrar_usuario', methods=['GET', 'POST'])
+def cadastrar_usuario():
+    # BARREIRA DE SEGURANÇA: Se não estiver logado OU não for administrador, barra o acesso
+    if 'usuario_logado' not in session or session.get('usuario_role') != 'admin':
+        flash("Acesso negado. Esta página é restrita a administradores.", "erro_login")
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        novo_username = request.form.get('username')
+        nova_senha = request.form.get('password')
+        novo_role = request.form.get('role') # Deve receber 'admin' ou 'user' do formulário
+
+        # CRIPTOGRAFIA: Transforma a senha em uma hash segura
+        senha_criptografada = generate_password_hash(nova_senha)
+
+        try:
+            conexao = obter_conexao()
+            cursor = conexao.cursor()
+            cursor.execute(
+                "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)",
+                (novo_username, senha_criptografada, novo_role)
+            )
+            conexao.commit()
+            cursor.close()
+            conexao.close()
+            flash("Novo usuário cadastrado com sucesso!", "sucesso")
+        except mysql.connector.Error as err:
+            print(f"Erro: {err}")
+            flash("Erro ao cadastrar usuário (Nome de usuário já pode existir).", "erro")
+
+    return render_template('cadastro_usuarios.html')
+
+
+# ROTA QUE MOSTRA OS ITENS DO ESTOQUE (Unificada e Protegida)
 @app.route('/banco', methods=['GET'])
 def banco():
-    # BLOQUEIO DE SEGURANÇA: Se o usuário tentar acessar direto sem logar, é expulso
     if 'usuario_logado' not in session:
         return redirect(url_for('index'))
 
@@ -75,17 +118,18 @@ def banco():
         return f"Erro ao carregar estoque: {erro}", 500
 
 
-# ROTA PARA LOGOUT (SAIR DO SISTEMA)
+# ROTA PARA LOGOUT (Limpa toda a sessão com segurança)
 @app.route('/logout')
 def logout():
-    session.pop('usuario_logado', None) # Destrói a sessão
+    session.clear() 
     return redirect(url_for('index'))
 
 
 # ROTA QUE RECEBE OS DADOS DO FORMULÁRIO E SALVA NO BANCO
 @app.route('/salvaritem', methods=['POST'])
 def salvar_item():
-    if 'usuario_logado' not in session: return redirect(url_for('index'))
+    if 'usuario_logado' not in session: 
+        return redirect(url_for('index'))
     
     nome = request.form['nome']
     quantidade = request.form['quantidade']
@@ -103,7 +147,7 @@ def salvar_item():
             INSERT INTO estoque (Nome, Quantidade, Estoque, Descricao, Preco, Categoria, Foto) 
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
-        valores = (nome, quantidade, estoque, descricao, preco_form, categoria, foto)
+        valores = (nome, quantity := quantidade, estoque, descricao, preco_form, categoria, foto)
         
         cursor.execute(comando_sql, valores)
         conexao.commit()
@@ -120,15 +164,16 @@ def salvar_item():
 # 4. ROTA PARA ADICIONAR ITENS 
 @app.route('/adicionaritens', methods=['POST', 'GET'])
 def adicionaritens():
-    if 'usuario_logado' not in session: return redirect(url_for('index'))
+    if 'usuario_logado' not in session: 
+        return redirect(url_for('index'))
     return render_template('adicionaritens.html')
     
-
 
 # ROTA PARA PAGINA MOVIMENTAÇÃO 
 @app.route('/movimentacao', methods=['GET', 'POST'])
 def tela_movimentar():
-    if 'usuario_logado' not in session: return redirect(url_for('index'))
+    if 'usuario_logado' not in session: 
+        return redirect(url_for('index'))
     try:
         conexao = obter_conexao()
         cursor = conexao.cursor()
@@ -143,12 +188,12 @@ def tela_movimentar():
 
 @app.route('/salvar', methods=['POST'])
 def salvar():
-    if 'usuario_logado' not in session: return redirect(url_for('index'))
+    if 'usuario_logado' not in session: 
+        return redirect(url_for('index'))
     
     id = request.form.get('id_item')
     opcao = request.form.get('tipo')
     qtde = int(request.form.get('quantidade'))
-    
     
     try:
         conexao = obter_conexao()
@@ -163,7 +208,7 @@ def salvar():
                 qtde_atualizada = qtde_banco[0] - qtde
                 
             cursor.execute('UPDATE estoque SET Quantidade = %s WHERE id = %s', (qtde_atualizada, id,))
-            conexao.commit() # Adicionado commit para salvar a alteração da quantidade
+            conexao.commit()
             
         cursor.close()
         conexao.close()
