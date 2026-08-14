@@ -18,7 +18,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             color: #496483;
         }
-        .container-cadastro h2 { margin-bottom: 20px; color: #ea953f; text-align: center; }
+        .container-cadastro h2 { margin-bottom: 20px; color: #d97736; text-align: center; }
         .form-grupo { margin-bottom: 15px; }
         .form-grupo label { display: block; margin-bottom: 5px; font-weight: bold; }
         .form-grupo input, .form-grupo textarea {
@@ -26,7 +26,7 @@
         }
         .botoes-cadastro { display: flex; gap: 10px; margin-top: 20px; }
         .btn-salvar { background-color: #007acc; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;}
-        .btn-cancelar { background-color: #ea953f; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; text-align: center; text-decoration: none;}
+        .btn-cancelar { background-color: #d97736; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; text-align: center; text-decoration: none;}
     </style>
 </head>
 
@@ -88,7 +88,7 @@ function erroImagem() {
         
        
         <form action="/salvaritem" method="POST">
-            <div class="form-grupo">
+            <div id="form-grupo">
                 <label>Nome do Item:</label>
                 <input type="text" name="nome" required>
             </div>
@@ -110,12 +110,11 @@ function erroImagem() {
             </div>
             <div class="form-grupo">
                 <label>Categoria:</label>
-                <select name="categoria" id="categoriaselecao" aria-label="Small select example">
-                <option selected>Selecione</option>
-                <option value="Mecânica">Mecânica</option>
-                <option value="Elétrica">Elétrica</option>
-                <option value="Geral">Geral</option>
-                </select>
+                <select id="seleçaouseradmin" name="role" required>
+                <option value="" selected disabled>Selecione</option>
+                <option value="admin">Administrador</option>
+                <option value="user">Usuário</option>
+            </select>
             <div class="form-grupo">
                 <br>
     <label>Link da imagem :</label>

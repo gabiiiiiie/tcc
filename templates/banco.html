@@ -19,21 +19,23 @@
         crossorigin="anonymous">
     </script>
 
-    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
+
 <body class="paginabanco">
 
+
+    <!-- NAVBAR -->
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
 
         <div class="container-fluid">
 
+            <img src="{{ url_for('static', filename='imagemitens/senailogo.png') }}"
+                 id="imgnavbar">
 
-            <a class="navbar-brand" href="#"></a>
-             <img src="{{ url_for('static', filename='imagemitens/senailogo.png') }}" id="imgnavbar">
 
             <button class="navbar-toggler"
                 type="button"
@@ -47,44 +49,78 @@
 
             </button>
 
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+
+                    <!-- LOGIN -->
+
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/index">
+
+                        <a class="nav-link active"
+                           aria-current="page"
+                           href="/index">
+
                             Login
+
                         </a>
+
                     </li>
+
+
+                    <!-- CADASTRAR ITEM -->
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/adicionaritens">
-                            Cadastrar item
+
+                        <a class="nav-link"
+                           href="/adicionaritens"
+                           style="color: rgb(41, 38, 38);">
+
+                            Cadastrar um item
+
                         </a>
+
                     </li>
+
+
+                    <!-- MOVIMENTAÇÃO -->
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/movimentacao">
-                           Movimentação
+
+                        <a class="nav-link"
+                           href="/movimentacao"
+                           style="color: rgb(41, 38, 38);">
+
+                            Movimentação
+
                         </a>
-                    </li>
-
-                   {% if session.get('role') == 'admin' %}
-                 <li class="nav-item">
-                       <a class="nav-link" href="/adicionaritens" style="color: blue; font-weight: bold;">Cadastrar Item</a>
-                 </li>
-                 <li class="nav-item">
-                      <a class="nav-link" href="/cadastrar_usuario" style="color: green;">Cadastrar Usuários</a>
-                 </li>
-                   {% endif %}
-
-                 <li class="nav-item">
-             <a class="nav-link" href="/logout" style="color: red;">Sair</a>
-                  </li>
-
-                        </ul>
 
                     </li>
+
+
+                    <!-- SOMENTE ADMINISTRADOR -->
+
+                    {% if session.get('usuario_role') == 'admin' %}
+
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               href="/cadastrarusuarios"
+                               style="color: rgb(41, 38, 38);">
+
+                                Cadastrar Usuários
+
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+
+                    </li>
+
 
                 </ul>
 
@@ -95,17 +131,25 @@
     </nav>
 
 
+    <!-- NAVBAR AZUL -->
+
     <nav id="navbar" data-bs-theme="dark">
-        <!-- Navbar content -->
     </nav>
 
 
-    <h1 id="titulo">Almoxarifado</h1>
+    <!-- TÍTULO -->
 
+    <h1 id="titulo">
+        Almoxarifado
+    </h1>
+
+
+    <!-- PESQUISA -->
 
     <div class="container-pesquisa">
 
-        <input type="text"
+        <input
+            type="text"
             id="inputPesquisa"
             onkeyup="filtrarTabela()"
             placeholder="Pesquise por nome do item...">
@@ -113,8 +157,12 @@
     </div>
 
 
-    <br><br><br>
+    <br>
+    <br>
+    <br>
 
+
+    <!-- TABELA -->
 
     <table id="tabelinha">
 
@@ -123,17 +171,25 @@
             <tr>
 
                 <th>Id</th>
+
                 <th>Nome do item</th>
+
                 <th>Quantidade</th>
+
                 <th>Estoque Mínimo</th>
+
                 <th>Descrição</th>
-                <th>Preco</th>
+
+                <th>Preço</th>
+
                 <th>Categoria</th>
+
                 <th>Foto</th>
 
             </tr>
 
         </thead>
+
 
         <tbody>
 
@@ -142,14 +198,22 @@
             <tr>
 
                 <td>{{ item[0] }}</td>
+
                 <td>{{ item[1] }}</td>
+
                 <td>{{ item[2] }}</td>
+
                 <td>{{ item[3] }}</td>
+
                 <td>{{ item[4] }}</td>
+
                 <td>R$ {{ item[5] }}</td>
+
                 <td>{{ item[6] }}</td>
 
+
                 <td>
+
                     <button
                         type="button"
                         class="btn-foto"
@@ -158,6 +222,7 @@
                         Imagem
 
                     </button>
+
                 </td>
 
             </tr>
@@ -169,83 +234,114 @@
     </table>
 
 
-        </div>
-
-    </div>
-
-
     <script>
+
 
         function verFoto(url, nome) {
 
             if (!url || url.trim() === "") {
 
                 Swal.fire({
+
                     icon: 'warning',
+
                     title: 'Foto não encontrada',
+
                     text: 'Este produto não possui uma foto cadastrada.'
+
                 });
 
                 return;
+
             }
 
+
             Swal.fire({
+
                 title: nome,
+
                 imageUrl: url,
+
                 imageAlt: nome,
+
                 showCloseButton: true,
+
                 showConfirmButton: false,
+
                 imageWidth: 500,
+
                 imageHeight: 400
+
             });
 
         }
 
 
+        // ============================
+        // PESQUISA NA TABELA
+        // ============================
+
         function filtrarTabela() {
 
-            const input = document.getElementById("inputPesquisa");
-            const filter = input.value.toLowerCase();
+            const input =
+                document.getElementById("inputPesquisa");
 
-            // Busca a tabela especificamente dentro da classe da página
-            const tabela = document.querySelector(".paginabanco table");
+            const filter =
+                input.value.toLowerCase();
+
+
+            const tabela =
+                document.getElementById("tabelinha");
+
 
             if (!tabela) return;
 
-            const linhas = tabela.getElementsByTagName("tr");
 
-            // Começa em 1 pra pular o cabeçalho
+            const linhas =
+                tabela.getElementsByTagName("tr");
+
+
             for (let i = 1; i < linhas.length; i++) {
 
-                let linhaContemOTexto = false;
+                let encontrou = false;
 
-                const celulas = linhas[i].getElementsByTagName("td");
 
-                // Busca oq foi digitado
+                const celulas =
+                    linhas[i].getElementsByTagName("td");
+
+
                 for (let j = 0; j < celulas.length; j++) {
 
-                    const textoCelula =
+                    const texto =
                         celulas[j].textContent ||
                         celulas[j].innerText;
 
-                    if (textoCelula.toLowerCase().indexOf(filter) > -1) {
 
-                        linhaContemOTexto = true;
+                    if (
+                        texto
+                            .toLowerCase()
+                            .indexOf(filter) > -1
+                    ) {
+
+                        encontrou = true;
+
                         break;
 
                     }
 
                 }
 
-                // Exibe ou oculta a linha de acordo com q foi pesquisado
+
                 linhas[i].style.display =
-                    linhaContemOTexto ? "" : "none";
+                    encontrou ? "" : "none";
 
             }
 
         }
 
+
     </script>
+
 
 </body>
 

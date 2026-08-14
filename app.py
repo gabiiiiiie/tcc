@@ -26,43 +26,51 @@ def index():
 # ROTA QUE VALIDA O LOGIN (Atualizada para verificar criptografia e nível de acesso)
 @app.route('/login', methods=['POST'])
 def login():
+
     username_digitado = request.form.get('username')
     password_digitada = request.form.get('password')
-    role_digitado = request.form.get('role') # Captura o valor 1 ou 2 do select do HTML
-
-    # Mapeia o select do HTML para o formato salvo no banco de dados
-    role_mapeado = "admin" if role_digitado == "1" else "user"
 
     try:
         conexao = obter_conexao()
-        cursor = conexao.cursor(dictionary=True) # Retorna como dicionário para facilitar
-        
-        # Busca apenas pelo username primeiro para validar a criptografia depois
-        comando = "SELECT * FROM usuarios WHERE username = %s"
-        cursor.execute(comando, (username_digitado,))
+        cursor = conexao.cursor(dictionary=True)
+
+        cursor.execute(
+            "SELECT * FROM usuarios WHERE username = %s",
+            (username_digitado,)
+        )
+
         usuario_encontrado = cursor.fetchone()
-        
+
         cursor.close()
         conexao.close()
 
-        # Valida se o usuário existe e se a senha criptografada bate com o que foi digitado
-        if usuario_encontrado and check_password_hash(usuario_encontrado['password'], password_digitada):
-            # Valida se o cargo selecionado na tela de login bate com o do banco de dados
-            if usuario_encontrado['role'] == role_mapeado:
-                session['usuario_logado'] = username_digitado 
-                session['usuario_role'] = usuario_encontrado['role'] # Salva se é 'admin' ou 'user'
-                return redirect(url_for('banco')) 
-            else:
-                flash('Nível de acesso incorreto para este usuário!', 'erro_login')
-                return redirect(url_for('index'))
+        if usuario_encontrado and check_password_hash(
+            usuario_encontrado['senha'],
+            password_digitada
+        ):
+
+            session['usuario_logado'] = username_digitado
+
+            # Aqui salva se o usuário é admin ou user
+            session['usuario_role'] = usuario_encontrado['role']
+
+            return redirect(url_for('banco'))
+
         else:
-            flash('Usuário ou senha incorretos!', 'erro_login') 
+            flash('Usuário ou senha incorretos!', 'erro_login')
             return redirect(url_for('index'))
 
     except mysql.connector.Error as erro:
         print(f"Erro no banco de dados: {erro}")
         flash('Erro técnico ao conectar com o banco.', 'erro_login')
         return redirect(url_for('index'))
+
+
+    
+
+
+
+
 
 
 # ROTA DE CADASTRO DE USUÁRIOS (Identação e variáveis de sessão corrigidas)
