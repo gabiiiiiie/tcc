@@ -74,8 +74,8 @@ def login():
 
 
 # ROTA DE CADASTRO DE USUÁRIOS (Identação e variáveis de sessão corrigidas)
-@app.route('/cadastrar_usuario', methods=['GET', 'POST'])
-def cadastrar_usuario():
+@app.route('/cadastrar_usuarios', methods=['GET', 'POST'])
+def cadastrar_usuarios():
     # BARREIRA DE SEGURANÇA: Se não estiver logado OU não for administrador, barra o acesso
     if 'usuario_logado' not in session or session.get('usuario_role') != 'admin':
         flash("Acesso negado. Esta página é restrita a administradores.", "erro_login")
@@ -104,7 +104,7 @@ def cadastrar_usuario():
             print(f"Erro: {err}")
             flash("Erro ao cadastrar usuário (Nome de usuário já pode existir).", "erro")
 
-    return render_template('cadastro_usuarios.html')
+    return render_template('cadastrar_usuarios.html')
 
 
 # ROTA QUE MOSTRA OS ITENS DO ESTOQUE (Unificada e Protegida)

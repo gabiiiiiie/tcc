@@ -186,11 +186,11 @@ form {
 }
 
 #seleçaouseradmin {
-    width: 320px;
+    width: 440px;
     height: 45px;
     position: center;
     padding: 14px;
-    background-color: #004B87;
+    background-color:#d97736;
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -251,12 +251,12 @@ input::placeholder {
 
 
 #tabelinha th {
-    background-color: #004B87; 
+    background-color: #d97736 ; 
     color: #ffffff;           
     padding: 14px;
     font-weight: bold;
     text-align: center;
-    border: 1px solid #003a69;
+    border: 1px solid #b96b37;
 }
 
 
@@ -269,14 +269,14 @@ input::placeholder {
     background-color: #ffffff;
 }
 
-/* Efeito Zebrado nas linhas da tabela (cinza) */
+/* Efeito Zebrado nas linhas da tabela */
 #tabelinha tbody tr:nth-child(even) td {
-    background-color: #f9f9f9;
+    background-color: #ffffffc5 ;
 }
 
 /* Efeito do mouse na tabela */
 #tabelinha tbody tr:hover td {
-    background-color: #f1f5f9;
+    background-color: #9ecff7;
 }
 
 
