@@ -511,8 +511,8 @@ input::placeholder {
 
 
 #seleçaoadmin {
-    width: 320px;
-    height: 28px;
+    width: 322px;
+    height: 27px;
 
 }
 
@@ -533,4 +533,422 @@ input::placeholder {
 
 .btn-laranja-cadastro:active {
     transform: scale(0.98) !important;
+}
+
+/* =========================================================
+   PÁGINA CADASTRAR USUÁRIOS
+   ========================================================= */
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+body.pagina-usuarios {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+
+    background-color: #1f6da8;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #333;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+body.pagina-usuarios .navbar {
+    height: 43px;
+
+    padding: 0 10px;
+
+    background-color: #ffffff !important;
+
+    border: none;
+}
+
+
+body.pagina-usuarios .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+/* LOGO */
+
+body.pagina-usuarios #imgnavbar {
+    width: 55px;
+
+    height: auto;
+
+    margin-right: 8px;
+
+    object-fit: contain;
+}
+
+
+/* LINKS */
+
+body.pagina-usuarios .navbar-nav {
+    align-items: center;
+}
+
+
+body.pagina-usuarios .navbar .nav-link {
+    color: #222222 !important;
+
+    font-size: 16px;
+
+    padding: 8px 10px;
+
+    text-decoration: none;
+}
+
+
+body.pagina-usuarios .navbar .nav-link:hover {
+    color: #1f6da8 !important;
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+   ========================================================= */
+
+body.pagina-usuarios .usuarios-page {
+
+    width: 100%;
+
+    min-height: calc(100vh - 43px);
+
+    padding-top: 45px;
+    padding-bottom: 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+body.pagina-usuarios .usuarios-page h1 {
+
+    margin: 0 0 38px 0;
+
+    padding: 0;
+
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 48px;
+
+    font-weight: bold;
+
+    line-height: 1.2;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   CARD DO FORMULÁRIO
+   ========================================================= */
+
+body.pagina-usuarios .form-usuario {
+
+    width: 500px;
+
+    max-width: calc(100% - 30px);
+
+    background-color: #ffffff;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.18);
+
+}
+
+
+/* =========================================================
+   CABEÇALHO LARANJA
+   ========================================================= */
+
+body.pagina-usuarios .form-titulo {
+
+    width: 100%;
+
+    padding: 16px 20px;
+
+    background-color: #df7b32;
+
+    color: #ffffff;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+body.pagina-usuarios .form-usuario form {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 32px 38px;
+
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+body.pagina-usuarios .campo {
+
+    width: 100%;
+
+    margin-bottom: 22px;
+
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+body.pagina-usuarios .campo label {
+
+    display: block;
+
+    margin: 0 0 7px 0;
+
+    color: #555555;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================================
+   INPUTS E SELECT
+   ========================================================= */
+
+body.pagina-usuarios .campo input,
+body.pagina-usuarios .campo select {
+
+    display: block;
+
+    width: 100%;
+
+    height: 43px;
+
+    padding: 8px 12px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #cfd8df;
+
+    border-radius: 5px;
+
+    color: #333333;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+
+}
+
+
+/* PLACEHOLDER */
+
+body.pagina-usuarios .campo input::placeholder {
+
+    color: #999999;
+
+}
+
+
+/* =========================================================
+   FOCO DOS CAMPOS
+   ========================================================= */
+
+body.pagina-usuarios .campo input:focus,
+body.pagina-usuarios .campo select:focus {
+
+    border-color: #087dcc;
+
+    box-shadow:
+        0 0 0 2px rgba(8, 125, 204, 0.12);
+
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+body.pagina-usuarios .campo select {
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   ÁREA DE AÇÕES
+   ========================================================= */
+
+body.pagina-usuarios .acoes-form {
+
+    width: 100%;
+
+    margin-top: 5px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   BOTÃO REGISTRAR
+   ========================================================= */
+
+body.pagina-usuarios .acoes-form button {
+
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 15px;
+
+    background-color: #087dcc;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+}
+
+
+/* HOVER */
+
+body.pagina-usuarios .acoes-form button:hover {
+
+    background-color: #066aa9;
+
+}
+
+
+/* =========================================================
+   LINK VOLTAR
+   ========================================================= */
+
+body.pagina-usuarios .acoes-form a {
+
+    margin-top: 15px;
+
+    color: #087dcc;
+
+    font-size: 14px;
+
+    text-decoration: none;
+
+}
+
+
+body.pagina-usuarios .acoes-form a:hover {
+
+    color: #066aa9;
+
+    text-decoration: underline;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    body.pagina-usuarios .usuarios-page {
+
+        padding-top: 30px;
+
+    }
+
+
+    body.pagina-usuarios .usuarios-page h1 {
+
+        font-size: 36px;
+
+        margin-bottom: 30px;
+
+    }
+
+
+    body.pagina-usuarios .form-usuario {
+
+        width: calc(100% - 30px);
+
+        max-width: 500px;
+
+    }
+
+
+    body.pagina-usuarios .form-usuario form {
+
+        padding: 25px;
+
+    }
+
 }

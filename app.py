@@ -244,6 +244,5 @@ def salvar():
         print(f"Erro na movimentação: {erro}")
         return "Erro ao atualizar a quantidade no banco", 500
 
-        
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
