@@ -23,68 +23,81 @@ def index():
     return render_template('index.html')
 
 
-# ROTA QUE VALIDA O LOGIN (Atualizada para verificar criptografia e nível de acesso)
-@app.route('/login', methods=['POST'])
+# ROTA QUE VALIDA O LOGIN
+@app.route("/login", methods=["POST"])
 def login():
+    username_digitado = request.form.get("username")
+    password_digitada = request.form.get("password")
+    role_selecionado = request.form.get(
+        "role"
+    )  # Pega o 1 (Admin) ou 2 (Usuário) do HTML
 
-    username_digitado = request.form.get('username')
-    password_digitada = request.form.get('password')
+    # VALIDAÇÃO OBRIGATÓRIA DO SELECT NO BACKEND
+    if not role_selecionado or role_selecionado not in ["1", "2"]:
+        flash("Por favor, selecione um nível de acesso.", "erro_login")
+        return redirect(url_for("index"))
 
     try:
         conexao = obter_conexao()
         cursor = conexao.cursor(dictionary=True)
 
         cursor.execute(
-            "SELECT * FROM usuarios WHERE username = %s",
-            (username_digitado,)
+            "SELECT * FROM usuarios WHERE username = %s", (username_digitado,)
         )
-
         usuario_encontrado = cursor.fetchone()
 
         cursor.close()
         conexao.close()
 
+        # Ajustado de 'senha' para 'password' para bater com o seu INSERT do banco
         if usuario_encontrado and check_password_hash(
-            usuario_encontrado['senha'],
-            password_digitada
+            usuario_encontrado["password"], password_digitada
         ):
 
-            session['usuario_logado'] = username_digitado
+            # Bloqueia o login se o cargo selecionado na tela inicial não bater com o cargo real do banco
+            # Ex: Se o banco diz 'admin' mas no select ele colocou '2' (Usuário), ou vice-versa.
+            cargo_banco = usuario_encontrado["role"]
+            if (role_selecionado == "1" and cargo_banco != "admin") or (
+                role_selecionado == "2" and cargo_banco != "user"
+            ):
+                flash(
+                    "O nível de acesso selecionado não corresponde ao deste usuário.",
+                    "erro_login",
+                )
+                return redirect(url_for("index"))
 
-            # Aqui salva se o usuário é admin ou user
-            session['usuario_role'] = usuario_encontrado['role']
+            session["usuario_logado"] = username_digitado
+            session["usuario_role"] = cargo_banco  # Salva 'admin' ou 'user'
 
-            return redirect(url_for('banco'))
+            return redirect(url_for("banco"))
 
         else:
-            flash('Usuário ou senha incorretos!', 'erro_login')
-            return redirect(url_for('index'))
+            flash("Usuário ou senha incorretos!", "erro_login")
+            return redirect(url_for("index"))
 
     except mysql.connector.Error as erro:
         print(f"Erro no banco de dados: {erro}")
-        flash('Erro técnico ao conectar com o banco.', 'erro_login')
-        return redirect(url_for('index'))
+        flash("Erro técnico ao conectar com o banco.", "erro_login")
+        return redirect(url_for("index"))
 
 
-    
-
-
-
-
-
-
-# ROTA DE CADASTRO DE USUÁRIOS (Identação e variáveis de sessão corrigidas)
-@app.route('/cadastrar_usuarios', methods=['GET', 'POST'])
+# ROTA DE CADASTRO DE USUÁRIOS
+@app.route("/cadastrar_usuarios", methods=["GET", "POST"])
 def cadastrar_usuarios():
-    # BARREIRA DE SEGURANÇA: Se não estiver logado OU não for administrador, barra o acesso
-    if 'usuario_logado' not in session or session.get('usuario_role') != 'admin':
-        flash("Acesso negado. Esta página é restrita a administradores.", "erro_login")
-        return redirect(url_for('index'))
+    # BARREIRA DE SEGURANÇA: Se não for administrador, barra o acesso
+    if (
+        "usuario_logado" not in session
+        or session.get("usuario_role") != "admin"
+    ):
+        flash(
+            "Acesso negado. Esta página é restrita a administradores.",
+            "erro_login",
+        )
+        return redirect(url_for("index"))
 
-    if request.method == 'POST':
-        novo_username = request.form.get('username')
-        nova_senha = request.form.get('password')
-        novo_role = request.form.get('role') # Deve receber 'admin' ou 'user' do formulário
+    if request.method == "POST":
+        novo_username = request.form.get("username")
+        nova_senha = request.form.get("password")
 
         # CRIPTOGRAFIA: Transforma a senha em uma hash segura
         senha_criptografada = generate_password_hash(nova_senha)
@@ -92,20 +105,26 @@ def cadastrar_usuarios():
         try:
             conexao = obter_conexao()
             cursor = conexao.cursor()
+
+            # CORREÇÃO AQUI: Passamos 'user' como o terceiro argumento na tupla
             cursor.execute(
                 "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)",
-                (novo_username, senha_criptografada, novo_role)
+                (novo_username, senha_criptografada, "user"),
             )
+
             conexao.commit()
             cursor.close()
             conexao.close()
             flash("Novo usuário cadastrado com sucesso!", "sucesso")
+
         except mysql.connector.Error as err:
-            print(f"Erro: {err}")
-            flash("Erro ao cadastrar usuário (Nome de usuário já pode existir).", "erro")
+            print(f"Erro no Banco de Dados: {err}")
+            flash(
+                "Erro ao cadastrar usuário (Nome de usuário já pode existir).",
+                "erro",
+            )
 
-    return render_template('cadastrar_usuarios.html')
-
+    return render_template("cadastrar_usuarios.html")
 
 # ROTA QUE MOSTRA OS ITENS DO ESTOQUE (Unificada e Protegida)
 @app.route('/banco', methods=['GET'])

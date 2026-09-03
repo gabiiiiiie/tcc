@@ -508,3 +508,29 @@ input::placeholder {
     max-width: 70px;
     max-height: 70px;
 }
+
+
+#seleçaoadmin {
+    width: 320px;
+    height: 28px;
+
+}
+
+/* Customização fina dos inputs na página de cadastro */
+.input-custom:focus {
+    border-color: #0056b3 !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25) !important;
+}
+
+/* Efeitos de hover e clique para o botão de cadastro do SENAI */
+.btn-laranja-cadastro {
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out !important;
+}
+
+.btn-laranja-cadastro:hover {
+    background-color: #e65c00 !important;
+}
+
+.btn-laranja-cadastro:active {
+    transform: scale(0.98) !important;
+}
