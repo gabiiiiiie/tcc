@@ -21,7 +21,7 @@
         <div class="container-fluid">
 
             <img
-                src="{{ url_for('static', filename='imagemitens/senailogo.png') }}"
+                src="{{ url_for('static', filename='imagens/senailogo.png') }}"
                 id="imgnavbar"
                 alt="SENAI"
             >
@@ -87,12 +87,31 @@
 
     <main class="usuarios-page">
 
-        <h1>Cadastrar Novo Usuário</h1>
-
+     <br> <br> <br> <br> <br>
 
         <!-- CARD -->
 
         <div class="form-usuario">
+             <div class="form-usuario">
+
+            <!-- ALERTA DE SUCESSO OU ERRO DO FLASK -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'sucesso' %}
+                            <div class="alert alert-success alert-dismissible fade show mb-3" role="alert" style="border-radius: 6px; font-weight: 500;">
+                                <strong>Pronto!</strong> {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                            </div>
+                        {% elif category == 'erro' %}
+                            <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert" style="border-radius: 6px; font-weight: 500;">
+                                <strong>Ops!</strong> {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
             <div class="form-titulo">
                 Cadastro de Usuário
@@ -173,7 +192,7 @@
                         REGISTRAR NO BANCO
                     </button>
 
-                    <a href="/almoxarifado">
+                    <a href="/banco">
                         Voltar ao Almoxarifado
                     </a>
 

@@ -16,9 +16,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
         crossorigin="anonymous">
 
-
     <style>
-        
         :root {
             --azul-fundo: #1867a8; /* Azul escuro do fundo */
             --azul-botao: #1867a8; /* Azul do botão principal */
@@ -26,15 +24,25 @@
             --cor-titulo: #c46c3b; /* Cor do título similar à tela de cadastro */
         }
 
-        
         body {
             background-color: var(--azul-fundo);
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column; /* Organiza os elementos em linha vertical */
+            align-items: center;    /* Centraliza horizontalmente o cartão */
+            justify-content: center; /* Centraliza verticalmente o cartão */
             margin: 0;
+            padding-top: 70px;      /* Espaço para o conteúdo não sumir atrás da navbar */
             font-family: Arial, sans-serif;
+        }
+
+        /* FIXAR A NAVBAR NO TOPO */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1050; /* Mantém a barra na frente de tudo */
         }
 
         /* Estilo do cartão branco centralizado */
@@ -45,6 +53,7 @@
             width: 100%;
             max-width: 450px;
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            margin: auto 0; /* Ajuda a centralizar o card perfeitamente no espaço restante */
         }
 
         /* Título do formulário */
@@ -63,7 +72,7 @@
             margin-bottom: 5px;
         }
 
-        /* Estilo dos inputs e selects para ficarem parecidos com os do seu site */
+        /* Estilo dos inputs e selects */
         .cartao-formulario .form-control, 
         .cartao-formulario .form-select {
             background-color: #f8f9fa;
@@ -104,8 +113,10 @@
             color: white;
         }
     </style>
+
 </head>
-<body>
+<body { 
+padding-top: 60px}>
 
      <!-- NAVBAR -->
 
@@ -113,7 +124,7 @@
 
         <div class="container-fluid">
 
-            <img src="{{ url_for('static', filename='imagemitens/senailogo.png') }}"
+            <img src="{{ url_for('static', filename='imagens/senailogo.png') }}"
                  id="imgnavbar">
 
 

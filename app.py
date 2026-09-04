@@ -98,6 +98,7 @@ def cadastrar_usuarios():
     if request.method == "POST":
         novo_username = request.form.get("username")
         nova_senha = request.form.get("password")
+        nova_role = request.form.get("role")  # Captura a escolha do HTML (user ou admin)
 
         # CRIPTOGRAFIA: Transforma a senha em uma hash segura
         senha_criptografada = generate_password_hash(nova_senha)
@@ -106,16 +107,18 @@ def cadastrar_usuarios():
             conexao = obter_conexao()
             cursor = conexao.cursor()
 
-            # CORREÇÃO AQUI: Passamos 'user' como o terceiro argumento na tupla
+            # Passa a variável dinâmica no terceiro argumento da tupla
             cursor.execute(
                 "INSERT INTO usuarios (username, password, role) VALUES (%s, %s, %s)",
-                (novo_username, senha_criptografada, "user"),
+                (novo_username, senha_criptografada, nova_role),
             )
 
             conexao.commit()
             cursor.close()
             conexao.close()
+            
             flash("Novo usuário cadastrado com sucesso!", "sucesso")
+            return redirect(url_for("cadastrar_usuarios"))  # Redireciona para limpar a tela e mostrar a mensagem
 
         except mysql.connector.Error as err:
             print(f"Erro no Banco de Dados: {err}")
@@ -123,6 +126,7 @@ def cadastrar_usuarios():
                 "Erro ao cadastrar usuário (Nome de usuário já pode existir).",
                 "erro",
             )
+            return redirect(url_for("cadastrar_usuarios"))
 
     return render_template("cadastrar_usuarios.html")
 
@@ -240,9 +244,10 @@ def salvar():
         cursor.close()
         conexao.close()
         return redirect(url_for('banco'))
+        
     except mysql.connector.Error as erro:
-        print(f"Erro na movimentação: {erro}")
-        return "Erro ao atualizar a quantidade no banco", 500
+        print(f"Erro ao atualizar quantidade: {erro}")
+        return "Erro ao atualizar quantidade no banco", 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
